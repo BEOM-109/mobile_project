@@ -5,23 +5,44 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".home">
+    tools:context=".HomeActivity">
 
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:id="@+id/containers">
-    </FrameLayout>
-
-    <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/bottom_menu"
+    <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="bottom"
-        app:labelVisibilityMode="labeled"
-        app:itemBackground="@color/white"
-        app:menu="@menu/bottom_menu"
-        />
+        android:text="프레그먼트 올 자리"
+        android:textSize="20dp"
+        android:layout_weight="20"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_weight="1">
+            <Button
+                android:id="@+id/main_btn"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="메인"/>
+            <Button
+                android:id="@+id/photo_btn"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="사진"/>
+            <Button
+                android:id="@+id/stat_btn"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="통계"/>
+            <Button
+                android:id="@+id/setting_btn"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="설정"/>
+    </LinearLayout>
 
 </LinearLayout>

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/home"
+        android:enabled="true"
+        android:icon="@drawable/ic_home"
+        android:title="홈"
+        app:showAsAction="always"/>
+
+    <item
+        android:id="@+id/gallery"
+        android:enabled="true"
+        android:icon="@drawable/ic_gallery"
+        android:title="갤러리"
+        app:showAsAction="always"/>
+
+    <item
+        android:id="@+id/setting"
+        android:enabled="true"
+        android:icon="@drawable/ic_setting"
+        android:title="세팅"
+        app:showAsAction="always"/>
+
+    <item
+        android:id="@+id/statistics"
+        android:enabled="true"
+        android:icon="@drawable/ic_statistics"
+        android:title="통계"
+        app:showAsAction="always"/>
+
+</menu>
