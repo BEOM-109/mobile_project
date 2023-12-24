@@ -6,7 +6,7 @@ import android.os.Bundle;
 
 import com.example.final_project.databinding.ActivityHomeBinding;
 
-public class home extends AppCompatActivity {
+public class HomeActivity extends AppCompatActivity {
     ActivityHomeBinding homeBindinging;
 
     @Override
