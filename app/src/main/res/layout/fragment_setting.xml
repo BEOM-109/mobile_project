@@ -1,30 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
-    <Button
-        android:id="@+id/btn_set1"
+
+    <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="테마 바꾸기"
-        android:textSize="30dp"
-        android:padding="30dp"/>
+        android:text=" "
+        android:textSize="40dp"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        android:padding="15dp" />
 
     <Button
         android:id="@+id/btn_set2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="DB 내보내기"
-        android:textSize="30dp"
-        android:padding="30dp"/>
+        android:textSize="20dp"
+        android:background="@drawable/button_pattern"
+        android:textColor="@color/white"
+        android:layout_margin="10dp"
+        android:textStyle="bold"
+        android:padding="10dp" />
 
     <Button
         android:id="@+id/btn_set3"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="DB 불러오기"
-        android:textSize="30dp"
-        android:padding="30dp"/>
+        android:textSize="20dp"
+        android:background="@drawable/button_pattern"
+        android:textColor="@color/white"
+        android:layout_margin="10dp"
+        android:textStyle="bold"
+        android:padding="10dp"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        <ImageView
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:src="@drawable/ic_setting"
+            android:layout_gravity="center"
+            android:layout_marginTop="100dp"
+            />
+    </LinearLayout>
 
 </LinearLayout>
