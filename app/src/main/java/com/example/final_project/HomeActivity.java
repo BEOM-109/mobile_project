@@ -69,6 +69,10 @@ public class HomeActivity extends AppCompatActivity {
         });
     }
 
+    public void refresh(){
+
+    }
+
     public static class DatabaseHelper extends SQLiteOpenHelper {
         private static final String DATABASE_NAME = "account_book.db";
         private static final int DATABASE_VERSION = 1;

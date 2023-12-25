@@ -47,8 +47,8 @@ public class AddFragment extends Fragment {
                 detail = fragmentAddBinding.edtContent.getText().toString();
 
 
-                if(category.isEmpty() && amount.isEmpty()){
-                    Toast.makeText(getActivity(), date, Toast.LENGTH_SHORT).show();
+                if(category.isEmpty() || amount.isEmpty() || isInteger(amount)){
+                    Toast.makeText(getActivity(), "정확한 값을 입력해주세요!", Toast.LENGTH_LONG).show();
                 } else{
                     count++;
                     dbManager.insert(date, category, detail, amount);
@@ -59,6 +59,15 @@ public class AddFragment extends Fragment {
         });
 
         return fragmentAddBinding.getRoot();
+    }
+
+    public static boolean isInteger(String strValue) {
+        try {
+            Integer.parseInt(strValue);
+            return false;
+        } catch (NumberFormatException ex) {
+            return true;
+        }
     }
 
     @Override

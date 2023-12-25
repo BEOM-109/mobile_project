@@ -15,7 +15,7 @@
         android:padding="15dp" />
 
     <Button
-        android:id="@+id/btn_set2"
+        android:id="@+id/btn_out"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="DB 내보내기"
@@ -27,7 +27,7 @@
         android:padding="10dp" />
 
     <Button
-        android:id="@+id/btn_set3"
+        android:id="@+id/btn_in"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="DB 불러오기"
