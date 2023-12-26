@@ -80,7 +80,6 @@ public class StatisFragment extends Fragment {
     }
     public void updateChart() {
         List<PieEntry> entries = new ArrayList<>();
-        List<PieEntry> amounts = new ArrayList<>();
 
         String selectedYear = binding.edtYear.getSelectedItem().toString();
         String selectedMonth = binding.edtMonth.getSelectedItem().toString();
@@ -91,6 +90,12 @@ public class StatisFragment extends Fragment {
         Map<String, Float> dataMap = new HashMap<>();
 
         String selectedDate = selectedYear + "_" + selectedMonth;
+
+        binding.bestItem1.setText("");
+        binding.bestItem2.setText("");
+        binding.bestItem3.setText("");
+        binding.bestItem4.setText("");
+        binding.bestItem5.setText("");
 
         if (selectedMonth.length() == 1) {
             selectedMonth = "0" + selectedMonth;
