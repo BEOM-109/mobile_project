@@ -102,7 +102,7 @@ public class SettingFragment extends Fragment {
 
             File outputFile = new File(outputFolder, this.path + ".db");
 
-            if (!outputFile.exists()) {
+            if (outputFile.exists()) {
                 outputFolder.delete();
             }
 
