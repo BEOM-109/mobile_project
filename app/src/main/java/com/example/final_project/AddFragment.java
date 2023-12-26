@@ -4,9 +4,11 @@ import android.database.Cursor;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
@@ -27,13 +29,27 @@ public class AddFragment extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         dbManager = new HomeActivity.DBManager(getActivity());
+        setHasOptionsMenu(true);
+        ((AppCompatActivity) getActivity()).getSupportActionBar().show();
+        ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                ((AppCompatActivity) getActivity()).getSupportActionBar().hide();
+                getFragmentManager().popBackStack();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         fragmentAddBinding = FragmentAddBinding.inflate(getLayoutInflater());
-        count = 0;
 
         Bundle bundle = getArguments();
         date = bundle.getString("Years") + "_" + bundle.getString("Months") + "_" + bundle.getString("Days");
@@ -50,9 +66,9 @@ public class AddFragment extends Fragment {
                 if(category.isEmpty() || amount.isEmpty() || isInteger(amount)){
                     Toast.makeText(getActivity(), "정확한 값을 입력해주세요!", Toast.LENGTH_LONG).show();
                 } else{
-                    count++;
                     dbManager.insert(date, category, detail, amount);
 
+                    ((AppCompatActivity) getActivity()).getSupportActionBar().hide();
                     getFragmentManager().popBackStack();
                 }
             }

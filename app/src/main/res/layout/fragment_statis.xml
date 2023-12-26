@@ -7,70 +7,57 @@
     android:orientation="vertical"
     >
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="총 지출금액"
-        android:textSize="20dp"
-        android:padding="20dp"
-        android:textStyle="bold"
-        android:textColor="@color/black"/>
-
     <LinearLayout
         android:id="@+id/Month"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
-        <Spinner
-            android:id="@+id/edtYear"
-            android:layout_width="50dp"
+        android:orientation="horizontal"
+        android:gravity="center">
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="20dp"
-            android:textSize="30dp"
-            android:layout_weight="4"/>
-        <TextView
-            android:id="@+id/Year"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:paddingTop="20dp"
-            android:text="년"
-            android:textSize="20dp"
-            android:textStyle="bold"
-            android:textColor="@color/black"
-            android:layout_weight="1"/>
+            android:layout_weight="1">
+            <Spinner
+                android:id="@+id/edtYear"
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:padding="20dp"
+                android:textSize="30dp"
+                android:layout_weight="4"
+                android:gravity="center"/>
+            <TextView
+                android:id="@+id/Year"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingTop="20dp"
+                android:text="년"
+                android:textSize="20dp"
+                android:textStyle="bold"
+                android:textColor="@color/black"
+                android:layout_weight="1"
+                android:gravity="center"/>
 
-        <Spinner
-            android:id="@+id/edtMonth"
-            android:layout_width="30dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="3"
-            android:padding="20dp"
-            android:textSize="30dp" />
+            <Spinner
+                android:id="@+id/edtMonth"
+                android:layout_width="30dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="3"
+                android:padding="20dp"
+                android:textSize="30dp"
+                android:gravity="center"/>
 
-        <TextView
-            android:id="@+id/month"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:paddingTop="20dp"
-            android:text="월"
-            android:textSize="20dp"
-            android:textStyle="bold"
-            android:textColor="@color/black"
-            android:layout_weight="1"/>
-
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:id="@+id/btnUpdate"
-            android:text="확인"
-            android:textSize="15dp"
-            android:textStyle="bold"
-            android:textColor="@color/white"
-            android:background="@drawable/button_pattern"
-            android:layout_weight="1"
-            android:layout_marginRight="50dp"
-            android:layout_marginTop="5dp"
-            android:layout_marginBottom="5dp"/>
+            <TextView
+                android:id="@+id/month"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingTop="20dp"
+                android:text="월"
+                android:textSize="20dp"
+                android:textStyle="bold"
+                android:textColor="@color/black"
+                android:layout_weight="1"
+                android:gravity="center"/>
+        </LinearLayout>
     </LinearLayout>
 
 
@@ -86,14 +73,25 @@
             android:layout_height="match_parent"
             app:title="지출 통계"
             android:padding="30dp"/>
+
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="10dp">
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="20dp">
+
+        <TextView
+            android:id="@+id/sum"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text=""
+            android:textSize="20dp"
+            android:textStyle="bold"
+            android:textColor="@color/black"/>
 
         <TextView
             android:id="@+id/bestItem1"
@@ -102,7 +100,8 @@
             android:text=""
             android:textSize="20dp"
             android:textStyle="bold"
-            android:textColor="@color/pastel1" />
+            android:textColor="@color/pastel1"
+            android:layout_marginTop="5dp"/>
 
         <TextView
             android:id="@+id/bestItem2"
@@ -144,5 +143,17 @@
             android:textStyle="bold"
             android:layout_marginTop="5dp"
             android:layout_marginBottom="30dp"/>
+        <Button
+            android:id="@+id/btnUpdate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/button_pattern"
+            android:textColor="@color/white"
+            android:textSize="20dp"
+            android:layout_marginLeft="150dp"
+            android:layout_marginRight="150dp"
+            android:layout_marginBottom="5dp"
+            android:text="확인" />
     </LinearLayout>
+
 </LinearLayout>

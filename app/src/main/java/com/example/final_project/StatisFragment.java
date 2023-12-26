@@ -5,15 +5,21 @@ import android.database.Cursor;
 import android.graphics.Color;
 import android.os.Bundle;
 
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.TextView;
 
 import com.example.final_project.databinding.FragmentAddBinding;
 import com.example.final_project.databinding.FragmentStatisBinding;
+import com.github.mikephil.charting.charts.PieChart;
+import com.github.mikephil.charting.components.Legend;
+import com.github.mikephil.charting.components.Legend.LegendVerticalAlignment;
 import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
@@ -29,12 +35,18 @@ public class StatisFragment extends Fragment {
     FragmentStatisBinding binding;
 
     int[] pastelColors = new int[]{
-            Color.rgb(198, 219, 218), // pastel1
-            Color.rgb(254, 225, 232), // pastel2
-            Color.rgb(254, 215, 195), // pastel3
-            Color.rgb(246, 234, 194), // pastel4
-            Color.rgb(236, 213, 227) // pastel5
+            Color.rgb(233, 154, 154),
+            Color.rgb(248, 203, 159),
+            Color.rgb(183, 214, 170),
+            Color.rgb(165, 195, 242),
+            Color.rgb(180, 168, 213)
     };
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        ((AppCompatActivity) getActivity()).getSupportActionBar().hide();
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -51,15 +63,15 @@ public class StatisFragment extends Fragment {
 
         binding.chart.getDescription().setEnabled(false);
 
-
-        // Initialize the dbManager
         dbManager = new HomeActivity.DBManager(getContext());
 
-        // Call updateChart when the view is created
+        binding.edtYear.setSelection(1);
+        binding.edtMonth.setSelection(11);
+        updateChart();
+
         binding.btnUpdate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // 버튼이 클릭되면 차트를 업데이트합니다.
                 updateChart();
             }
         });
@@ -67,25 +79,28 @@ public class StatisFragment extends Fragment {
         return view;
     }
     public void updateChart() {
+        List<PieEntry> entries = new ArrayList<>();
+        List<PieEntry> amounts = new ArrayList<>();
+
         String selectedYear = binding.edtYear.getSelectedItem().toString();
         String selectedMonth = binding.edtMonth.getSelectedItem().toString();
-        if (selectedMonth.length() == 1) {
-            selectedMonth = "0" + selectedMonth; // 1~9월을 01~09월로 표시
-        }
+
+        Cursor cursor = dbManager.getAll();
+        float totalAmount = 0;
+
+        Map<String, Float> dataMap = new HashMap<>();
 
         String selectedDate = selectedYear + "_" + selectedMonth;
 
-        // DB에서 모든 데이터 가져오기
-        Cursor cursor = dbManager.getAll();
-
-        Map<String, Float> dataMap = new HashMap<>();
-        float totalAmount = 0;
+        if (selectedMonth.length() == 1) {
+            selectedMonth = "0" + selectedMonth;
+        }
 
         while (cursor.moveToNext()) {
             @SuppressLint("Range") String date = cursor.getString(cursor.getColumnIndex("date"));
             String[] splitDate = date.split("_");
             if (splitDate.length >= 2) {
-                String yearMonth = splitDate[0] + "_" + splitDate[1]; // 년도와 월 추출
+                String yearMonth = splitDate[0] + "_" + splitDate[1];
 
                 if (yearMonth.equals(selectedDate)) {
                     @SuppressLint("Range") String category = cursor.getString(cursor.getColumnIndex("category"));
@@ -96,27 +111,52 @@ public class StatisFragment extends Fragment {
                     } else {
                         dataMap.put(category, amount);
                     }
-                    totalAmount += amount; // 합계 계산
+
+                    totalAmount += amount;
                 }
             }
         }
 
         cursor.close();
 
-        List<PieEntry> entries = new ArrayList<>();
-
         for(Map.Entry<String, Float> entry: dataMap.entrySet()) {
-            float percentage = entry.getValue() / totalAmount; // 퍼센트 계산
+            float percentage = (entry.getValue() / totalAmount) * 100; // 퍼센트 계산
             entries.add(new PieEntry(percentage, entry.getKey())); // 퍼센트를 이용한 PieEntry 생성
         }
 
         PieDataSet dataSet = new PieDataSet(entries, "Categories");
         dataSet.setColors(pastelColors);
+        dataSet.setValueTextSize(20f);
+        dataSet.setValueTextColor(Color.BLACK);
+
         PieData data = new PieData(dataSet);
-        data.setValueTextSize(10f);
+        data.setValueTextSize(20f);
         data.setValueTextColor(Color.BLACK);
+
+        binding.chart.setEntryLabelColor(Color.BLACK);
+        binding.chart.setEntryLabelTextSize(20f);
+        binding.chart.getLegend().setTextSize(20f);
+        binding.chart.getLegend().setTextColor(Color.BLACK);
+        binding.chart.getLegend().setHorizontalAlignment(Legend.LegendHorizontalAlignment.CENTER);
+        binding.chart.getLegend().setForm(Legend.LegendForm.CIRCLE);
 
         binding.chart.setData(data);
         binding.chart.invalidate(); // 차트 갱신
+
+        TextView[] bestItems = new TextView[]{
+                binding.bestItem1,
+                binding.bestItem2,
+                binding.bestItem3,
+                binding.bestItem4,
+                binding.bestItem5
+        };
+
+        binding.sum.setText("총 금액: " + (int) totalAmount + "원");
+
+        for (int i = 0; i < bestItems.length && i < entries.size(); i++) {
+            bestItems[i].setText(entries.get(i).getLabel() + ": " + Math.round(dataMap.get(entries.get(i).getLabel())) + "원 / "
+                    + Math.round(entries.get(i).getValue() * 100) / 100.0 + "%");
+            bestItems[i].setTextColor(Color.BLACK);
+        }
     }
 }

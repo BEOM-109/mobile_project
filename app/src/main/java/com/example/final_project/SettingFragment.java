@@ -5,6 +5,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
 import android.os.Environment;
@@ -22,10 +24,17 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.util.Objects;
 
 public class SettingFragment extends Fragment {
     FragmentSettingBinding fragmentSettingBinding;
     String path = null;
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        ((AppCompatActivity) getActivity()).getSupportActionBar().hide();
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -65,16 +74,17 @@ public class SettingFragment extends Fragment {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-
         if (resultCode == 1) {
             this.path = data.getExtras().getString("PATH");
             this.exportDatabase(getActivity());
+            Toast.makeText(getActivity(), "DB 파일이 저장되었습니다.", Toast.LENGTH_LONG).show();
         } else if(resultCode == 2){
             this.path = data.getExtras().getString("PATH");
             this.importDatabase(getActivity(), this.path);
+
+            Toast.makeText(getActivity(), "DB 파일을 불러옵니다.", Toast.LENGTH_LONG).show();
         }
 
-        Toast.makeText(getActivity(), this.path, Toast.LENGTH_SHORT).show();
     }
 
     public void exportDatabase(Context context) {
@@ -83,7 +93,7 @@ public class SettingFragment extends Fragment {
             FileInputStream fis = new FileInputStream(dbFile);
 
             String outputPath = Environment.getExternalStorageDirectory() + "/Download";
-            Toast.makeText(context, outputPath, Toast.LENGTH_SHORT).show();
+
             File outputFolder = new File(outputPath);
 
             if (!outputFolder.exists()) {
@@ -91,6 +101,11 @@ public class SettingFragment extends Fragment {
             }
 
             File outputFile = new File(outputFolder, this.path + ".db");
+
+            if (!outputFile.exists()) {
+                outputFolder.delete();
+            }
+
             OutputStream output = new FileOutputStream(outputFile);
 
             byte[] buffer = new byte[1024];
@@ -113,7 +128,6 @@ public class SettingFragment extends Fragment {
         try {
             File dbFile = context.getDatabasePath("account_book.db");
             if (dbFile.exists()) {
-                Toast.makeText(context, dbFile.getPath() + "파일 지우는중", Toast.LENGTH_LONG).show();
                 dbFile.delete();
             }
 

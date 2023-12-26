@@ -1,10 +1,13 @@
 package com.example.final_project;
 
+import static android.app.PendingIntent.getActivity;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
+import android.annotation.SuppressLint;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -20,15 +23,16 @@ import android.widget.SimpleCursorAdapter;
 import android.widget.Toast;
 
 import com.example.final_project.databinding.ActivityHomeBinding;
+import com.github.mikephil.charting.components.LegendEntry;
 import com.google.android.material.navigation.NavigationBarView;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 public class HomeActivity extends AppCompatActivity {
     ActivityHomeBinding homeBinding;
     private DBManager myDb;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,26 +55,21 @@ public class HomeActivity extends AppCompatActivity {
                 switch (item.getItemId()){
                     case R.id.home:
                         selectedFragment = new HomeFragment();
+                        getSupportFragmentManager().beginTransaction().replace(R.id.frame_container, selectedFragment, "HOME_FRAG").commit();
                         break;
                     case R.id.statistics:
                         selectedFragment = new StatisFragment();
+                        getSupportFragmentManager().beginTransaction().replace(R.id.frame_container, selectedFragment, "STATIS").commit();
                         break;
                     case R.id.setting:
                         selectedFragment = new SettingFragment();
+                        getSupportFragmentManager().beginTransaction().replace(R.id.frame_container, selectedFragment, "SETTING").commit();
                         break;
-                }
-
-                if(selectedFragment != null){
-                    getSupportFragmentManager().beginTransaction().replace(R.id.frame_container, selectedFragment).commit();
                 }
 
                 return true;
             }
         });
-    }
-
-    public void refresh(){
-
     }
 
     public static class DatabaseHelper extends SQLiteOpenHelper {
@@ -116,6 +115,10 @@ public class HomeActivity extends AppCompatActivity {
             values.put("detail", detail);
             values.put("amount", amount);
             db.insert("AccountBook", null, values);
+        }
+
+        public void delete(String detail) {
+            db.delete("AccountBook", "detail = ?", new String[]{detail});
         }
 
         public Cursor getAll() {
