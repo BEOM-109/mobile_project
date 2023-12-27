@@ -121,24 +121,12 @@ public class HomeFragment extends Fragment {
         private String category;
         private String detail;
 
-        public String getAmount() {
-            return amount;
-        }
-        public String getCategory() {
-            return category;
-        }
-        public String getDetail() {
-            return detail;
-        }
-        public void setAmount(String amount) {
-            this.amount = amount;
-        }
-        public void setCategory(String category) {
-            this.category = category;
-        }
-        public void setDetail(String detail) {
-            this.detail = detail;
-        }
+        public String getAmount() { return amount; }
+        public String getCategory() { return category; }
+        public String getDetail() { return detail; }
+        public void setAmount(String amount) { this.amount = amount; }
+        public void setCategory(String category) { this.category = category; }
+        public void setDetail(String detail) { this.detail = detail; }
     }
 
     public static class MyAdapter extends ArrayAdapter<Data> {
