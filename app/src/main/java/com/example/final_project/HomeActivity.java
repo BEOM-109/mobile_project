@@ -41,11 +41,9 @@ public class HomeActivity extends AppCompatActivity {
         setContentView(homeBinding.getRoot());
 
         myDb = new DBManager(this);
-
         Cursor cursor = myDb.getAll();
 
         getSupportFragmentManager().beginTransaction().replace(R.id.frame_container, new HomeFragment()).commit();
-
 
         homeBinding.bottomMenu.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
             @Override
