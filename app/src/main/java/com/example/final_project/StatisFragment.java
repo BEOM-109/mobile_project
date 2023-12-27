@@ -125,8 +125,8 @@ public class StatisFragment extends Fragment {
         cursor.close();
 
         for(Map.Entry<String, Float> entry: dataMap.entrySet()) {
-            float percentage = (entry.getValue() / totalAmount) * 100; // 퍼센트 계산
-            entries.add(new PieEntry(percentage, entry.getKey())); // 퍼센트를 이용한 PieEntry 생성
+            float percentage = (entry.getValue() / totalAmount) * 100;
+            entries.add(new PieEntry(percentage, entry.getKey()));
         }
 
         PieDataSet dataSet = new PieDataSet(entries, "Categories");
@@ -146,7 +146,7 @@ public class StatisFragment extends Fragment {
         binding.chart.getLegend().setForm(Legend.LegendForm.CIRCLE);
 
         binding.chart.setData(data);
-        binding.chart.invalidate(); // 차트 갱신
+        binding.chart.invalidate();
 
         TextView[] bestItems = new TextView[]{
                 binding.bestItem1,
